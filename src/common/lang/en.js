@@ -9,8 +9,9 @@ export const m = {
   addEmployee:'Add Employee',
   admin:'Admin',
   adminList:'Admin List',
-  pay:'Pay For Me',
-  thanks:'Thank You',
+  addAdmin:'Add Admin',
+  pay:'Order',
+  thanks:'Pay For Order',
   update:'Update',
   delete:'Delete'
 

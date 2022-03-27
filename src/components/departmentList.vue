@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 style="">部门列表</h1>
+    <h1 style="font-size: 26px">部门列表</h1>
     <el-table
       class="el-table"
       :data="tableData"
@@ -40,7 +40,7 @@
             <p>确定删除吗？</p>
             <div style="text-align: right; margin: 0">
               <el-button size="mini" type="text" >取消</el-button>
-              <el-button type="primary" size="mini" @click="deleteFoodType(scope.row.id)">确定</el-button>
+              <el-button type="primary" size="mini" @click="deleteDepartment(scope.row.id)">确定</el-button>
             </div>
             <el-button slot="reference" type="danger" plain>删除</el-button>
           </el-popover>
@@ -51,15 +51,15 @@
 
 
     <el-dialog
-      title="修改食品种类信息"
+      title="修改部门名称"
       :visible.sync="editDialogVisible"
       width="50%"
     >
 
       <el-form :model="editForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 
-        <el-form-item label="食品种类名称" prop="typeName">
-          <el-input type="text" v-model="editForm.typeName" autocomplete="off"></el-input>
+        <el-form-item label="部门名称" prop="name">
+          <el-input type="text" v-model="editForm.name" autocomplete="off"></el-input>
         </el-form-item>
 
       </el-form>
@@ -76,9 +76,9 @@
     export default {
         name: "foodTypeList",
       data() {
-        var checkTypeName = (rule, value, callback) => {
+        var checkDepartmentName = (rule, value, callback) => {
           if (value === '') {
-            return callback(new Error('种类名称不能为空'));
+            return callback(new Error('部门名称不能为空'));
           } else {
             callback();
           }
@@ -89,7 +89,7 @@
           editForm: {},
           rules: {
             typeName: [
-              { validator: checkTypeName, trigger: 'blur' }
+              { validator: checkDepartmentName, trigger: 'blur' }
             ]
           }
         }
@@ -108,12 +108,11 @@
             .catch(failResponse => {
             })
         },
-        deleteFoodType(id){
-          this.$axios
-            .post('/deleteFoodType',this.$qs.stringify({
-              id: id
-            }))
-            .then(successResponse => {
+        deleteDepartment(id){
+          this.$axios({
+              method: 'delete',
+              url: '/dep/delete/'+id,
+            }).then(successResponse => {
               console.log(successResponse.data)
               this.getList()
             })
@@ -122,7 +121,7 @@
         },
         showEditDialog(id){
           this.$axios
-            .post('/getFoodTypeById',this.$qs.stringify({
+            .post('/dep/getById',this.$qs.stringify({
               id: id
             }))
             .then(successResponse => {
@@ -133,11 +132,11 @@
             })
           this.editDialogVisible = true
         },
-        updateFoodType(){
+        updateDepartment(){
           this.$axios
-            .post('/updateFoodType',{
+            .post('/dep/update',{
               id: this.editForm.id,
-              typeName: this.editForm.typeName,
+              name: this.editForm.name,
             })
             .then(successResponse => {
               console.log(successResponse.data)
@@ -151,7 +150,7 @@
             if (valid) {
               console.log('submit!')
               //向后端提交数据
-              this.updateFoodType()
+              this.updateDepartment()
             } else {
               console.log('error submit!!');
               return false;

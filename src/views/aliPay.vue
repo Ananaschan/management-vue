@@ -1,8 +1,8 @@
 <template>
 <div>
-  <h1>如果您觉得本系统不错，可以请我喝一杯咖啡！感谢您的支持！</h1>
+  <h1>生成业务订单，请添加相关内容及描述</h1>
   <el-form ref="form" :model="form" label-width="80px">
-    <el-form-item label="商户订单">
+    <el-form-item label="订单编号">
       <el-input v-model="form.outTradeNo"></el-input>
     </el-form-item>
     <el-form-item label="订单名称">

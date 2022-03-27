@@ -11,10 +11,25 @@
         active-text-color="#ffd04b"
         :gutter="20">
 
+
         <el-row :gutter="20">
           <el-col :span="6">
             <el-menu-item index="1" :span="18">{{$t('m.management')}}</el-menu-item>
           </el-col>
+
+<!--          <el-col :span="3">-->
+<!--            <el-submenu index="2">-->
+<!--              <template slot="title">我的工作台</template>-->
+<!--              <router-link to="/employeeList">-->
+<!--                <el-menu-item index="2-1">{{$t('m.employeeList')}}</el-menu-item>-->
+<!--              </router-link>-->
+
+<!--              <router-link to="/addEmployee">-->
+<!--                <el-menu-item index="2-2">{{$t('m.addEmployee')}}</el-menu-item>-->
+<!--              </router-link>-->
+
+<!--            </el-submenu>-->
+<!--          </el-col>-->
 
           <el-col :span="6" :offset="6">
             <el-select v-model="lang" @change="changeLanguage()" placeholder="Language">
@@ -33,10 +48,11 @@
         </el-row>
 
       </el-menu>
+
     </el-header>
 
     <el-container>
-      <el-aside width="200px">
+      <el-aside  style="height: 100%;width: 200px">
         <el-row class="tac">
           <el-col :span="24">
             <el-menu
@@ -59,11 +75,11 @@
                       {{$t('m.departmentList')}}
                     </el-menu-item>
                   </router-link>
-<!--                  <router-link to="/addDepartment">-->
-<!--                    <el-menu-item index="1-2">-->
-<!--                      {{$t('m.addDepartment')}}-->
-<!--                    </el-menu-item>-->
-<!--                  </router-link>-->
+                  <router-link to="/addDepartment">
+                    <el-menu-item index="1-2">
+                      {{$t('m.addDepartment')}}
+                    </el-menu-item>
+                  </router-link>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="2">
@@ -95,11 +111,17 @@
                       {{$t('m.adminList')}}
                     </el-menu-item>
                   </router-link>
+
+                  <router-link to="/addAdmin">
+                    <el-menu-item index="3-2">
+                      {{$t('m.addAdmin')}}
+                    </el-menu-item>
+                  </router-link>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="4">
                 <template slot="title">
-                  <i class="el-icon-user-solid"></i>
+                  <i class="el-icon-goods"></i>
                   <span>{{$t('m.pay')}}</span>
                 </template>
                 <el-menu-item-group>
@@ -170,7 +192,8 @@
     padding-right: 40px;
   }
   .el-menu-vertical-demo{
-    height: 860px;
+    /*height: 960px;*/
+    height: 1480px;
   }
   .el-header, .el-footer {
     background-color: RGB(238,238,238);

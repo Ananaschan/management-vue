@@ -61,7 +61,21 @@
           if (value === '') {
             return callback(new Error('员工姓名不能为空'));
           } else {
-            callback();
+            this.$axios
+              .post('/emp/repeat/'+this.editForm.name,
+              )
+              .then(successResponse => {
+                console.log(successResponse.data)
+                if (!successResponse.data) {
+                  //重名
+                  return callback(new Error('员工姓名重复'));
+                }else {
+                  callback();
+                }
+              })
+              .catch(failResponse => {
+                console.log(failResponse.data)
+              })
           }
         };
         var checkDepartment = (rule, value, callback) => {
@@ -80,8 +94,10 @@
         };
         var checkEmail = (rule, value, callback) => {
           if (value === '') {
-            callback(new Error('输入员工邮箱'));
-          }  else {
+            callback(new Error('请输入员工邮箱'));
+          }else if (value.length < 6){
+            callback(new Error('邮箱不得低于6个字符'));
+          } else {
             callback();
           }
         };
@@ -176,7 +192,7 @@
           return row.address;
         },
         addEmployee(){
-          console.log("editForm:",this.editForm)
+          //console.log("editForm:",this.editForm)
           this.$axios
             .post('/emp/add',{
               id: this.editForm.id,
@@ -188,13 +204,17 @@
               salary: this.editForm.salary,
             })
             .then(successResponse => {
-              if (successResponse.data > 0) {
+              console.log(successResponse.data)
+              if (successResponse.data.code === 100) {
                 //添加成功！
                 this.$alert('添加成功！');
                 this.$router.replace({path: '/employeeList'})
+              }else {
+                this.$message.error(successResponse.data.message);
               }
             })
             .catch(failResponse => {
+              console.log(failResponse.data)
             })
         },
       }
@@ -202,5 +222,13 @@
 </script>
 
 <style scoped>
-
+  .el-input{
+    width: 80%;
+  }
+  .el-date-picker{
+    width: 80%;
+  }
+  .el-select{
+    width: 80%;
+  }
 </style>

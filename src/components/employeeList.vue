@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 style="">员工列表</h1>
+    <h1 style="font-size: 26px">员工列表</h1>
     <el-form :inline="true" class="demo-form-inline">
       <el-form-item label="关键字搜索">
         <el-input v-model="keyword" placeholder="请输入员工姓名关键字"></el-input>
@@ -9,6 +9,19 @@
         <el-button type="primary" @click="search">查询</el-button>
       </el-form-item>
     </el-form>
+
+    <div class="delAll" style="margin-top: 20px">
+<!--      <template>-->
+<!--        <el-popconfirm-->
+<!--          title="确定删除吗？" @onConfirm="deleteMore()"-->
+<!--        >-->
+<!--          <el-button slot="reference" type="danger" :disabled="this.multipleSelection.length === 0">删除</el-button>-->
+<!--        </el-popconfirm>-->
+<!--      </template>-->
+      <el-button type="danger"  @click="deleteMore()" :disabled="this.multipleSelection.length === 0">批量删除</el-button>
+      <el-button @click="toggleSelection()">取消选择</el-button>
+    </div>
+
 
     <el-table
       ref="multipleTable"
@@ -114,10 +127,14 @@
 
       </el-table-column>
     </el-table>
-    <div style="margin-top: 20px">
-      <el-button type="danger"  @click="deleteMore()" :disabled="this.multipleSelection.length === 0">批量删除</el-button>
-      <el-button @click="toggleSelection()">取消选择</el-button>
-    </div>
+
+    <el-pagination
+      background
+      @current-change="currentChange"
+      @size-change="sizeChange"
+      layout="prev, pager, next"
+      :total="total">
+    </el-pagination>
 
     <el-dialog
       title="修改员工信息"
@@ -228,8 +245,9 @@
             salary:0,
             gander:0,
             email:'',
-
           },
+
+
           ganderList:[
             {
               value:0,
@@ -240,6 +258,8 @@
               label:'男'
             }
           ],
+
+
           departmentList: {
           },
           keyword:'',
@@ -257,7 +277,10 @@
               { validator: address, trigger: 'blur' }
             ]
           },
-          multipleSelection: []
+          multipleSelection: [],
+          total:0,
+          page:1,
+          size:10
         }
       },
       mounted(){
@@ -267,10 +290,13 @@
       methods: {
         getList(){
           this.$axios
-            .post('/emp/list')
+            .post('/emp/list?page='+this.page+'&size='+this.size)
             .then(successResponse => {
-              console.log(successResponse.data)
-              var data = successResponse.data
+              console.log(successResponse.data.map.data.data)
+              var data = successResponse.data.map.data.data
+
+              this.total=successResponse.data.map.data.total;
+              //console.log("total"+this.data.map.total)
               for(var i in data){
                 if (data[i].gander===0){
                   data[i].gander='女'
@@ -278,9 +304,11 @@
                   data[i].gander='男'
                 }
               }
+              //console.log("转换后"+data)
               this.tableData = data
             })
             .catch(failResponse => {
+              this.$message.error(failResponse.data.message);
             })
         },
         getDepartmentList(){
@@ -293,16 +321,25 @@
             })
         },
         deleteUser(id){
-          this.$axios
-            .post('/emp/delete',this.$qs.stringify({
-              id: id
-            }))
-            .then(successResponse => {
-              console.log(successResponse.data)
-              this.getList()
-            })
-            .catch(failResponse => {
-            })
+          this.$axios({
+            method: 'delete',
+            url: '/emp/delete/'+id,
+          }).then(successResponse => {
+            console.log(successResponse.data)
+            //当前页为空时 返回上一页
+            const totalPage = Math.ceil((this.total - 1) / this.size) // 总页数
+            this.page = this.page > totalPage ? totalPage : this.page
+            this.page = this.page < 1 ? 1 : this.page
+
+            this.getList()
+            this.$message({
+              message: successResponse.data.message,
+              type: 'success'
+            });
+          }).catch(failResponse => {
+            this.$message.error(failResponse.data.message);
+          })
+
         },
         showEditDialog(id){
           this.$axios
@@ -383,15 +420,44 @@
         },
         deleteMore(){
           console.log("deleteMore")
-          var ids= this.multipleSelection.map(item => item.id)
-
-          for (var i in ids) {
-            console.log(ids[i])
-            this.deleteUser(ids[i])
+          var idList= this.multipleSelection.map(item => item.id)
+          var ids = []
+          for (var i = 0; i < idList.length; i++) {
+            ids.push(idList[i])
           }
+          console.log(ids)
+          this.$axios
+            .post('/emp/deleteAll?ids='+ids
+            )
+            .then(successResponse => {
+              console.log(successResponse.data)
+              //当前页为空时 返回上一页
+              const totalPage = Math.ceil((this.total - 1) / this.size) // 总页数
+              this.page = this.page > totalPage ? totalPage : this.page
+              this.page = this.page < 1 ? 1 : this.page
+
+              this.getList()
+              this.$message({
+                message: successResponse.data.message,
+                type: 'success'
+              });
+            })
+            .catch(failResponse => {
+              this.$message.error(failResponse.data.message);
+            })
          },
         handleSelectionChange(val) {
           this.multipleSelection = val;
+        },
+        sizeChange(pageSize){
+          console.log('pageSize:'+pageSize)
+          this.size=pageSize;
+          this.getList();
+        },
+        currentChange(currentPage){
+          console.log('currentPage:'+currentPage)
+          this.page=currentPage;
+          this.getList();
         }
       }
     }
@@ -403,5 +469,24 @@
     text-align:center;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     width: 500px;
+
+  }
+
+  .delAll{
+    float: right;
+    padding-right: 200px;
+  }
+
+  .el-pagination{
+    margin-top: 20px;
+  }
+  .el-input{
+    width: 80%;
+  }
+  .el-date-picker{
+    width: 80%;
+  }
+  .el-select{
+    width: 80%;
   }
 </style>

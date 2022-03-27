@@ -8,7 +8,9 @@ import addEmployee from "../components/addEmployee";
 import aliPay from "../views/aliPay";
 import paymentInform from "../views/paymentInform";
 import adminList from "../components/adminList";
-
+import index from "../components/adminList";
+import addDepartment from "../components/addDepartment";
+import addAdmin from "../components/addAdmin";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -54,10 +56,10 @@ export default new VueRouter({
             requireAuth: true
           }
         },
-        {
-          path: '/paymentInform',
-          name: 'paymentInform',
-          component: paymentInform,
+        {//添加部门
+          path: '/addDepartment',
+          name: 'addDepartment',
+          component: addDepartment,
           meta: {
             //未登录拦截
             requireAuth: true
@@ -81,12 +83,35 @@ export default new VueRouter({
             requireAuth: true
           }
         },
+        {
+          path: '/addAdmin',
+          name: 'addAdmin',
+          component: addAdmin,
+          meta: {
+            //未登录拦截
+            requireAuth: true
+          }
+        },
+        {
+          path: '/index1',
+          name: 'index',
+          component: index,
+          meta: {
+            //未登录拦截
+            requireAuth: false
+          }
+        },
       ]
     },
     {
       path: '/adminLogin',
       name: 'adminLogin',
       component: adminLogin,
+    },
+    {
+      path: '/paymentInform',
+      name: 'paymentInform',
+      component: paymentInform,
     }
     ]
 })

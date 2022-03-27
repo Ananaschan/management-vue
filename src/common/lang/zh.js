@@ -9,8 +9,9 @@ export const m = {
   addEmployee:'添加员工',
   admin:'管理员管理',
   adminList:'管理员列表',
-  pay:'给我打钱',
-  thanks:'感谢支持',
+  addAdmin:'添加管理员',
+  pay:'订单系统',
+  thanks:'生成订单',
   update:'修改',
   delete:'删除'
 }
