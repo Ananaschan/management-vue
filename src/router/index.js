@@ -11,6 +11,10 @@ import adminList from "../components/adminList";
 import index from "../components/adminList";
 import addDepartment from "../components/addDepartment";
 import addAdmin from "../components/addAdmin";
+import frontIndex from "../views/frontIndex";
+import front1 from "../components/front1";
+import front2 from "../components/front2";
+import front3 from "../components/front3";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -18,8 +22,35 @@ export default new VueRouter({
   routes:[
     {
       path: '/',
-      redirect:'/mainIndex'
+      redirect:'/front1'
     },
+    {
+      path: '/frontIndex',
+      name: 'frontIndex',
+      component: frontIndex,
+      meta: {
+        //未登录拦截
+        requireAuth: false
+      },
+      children: [
+        {
+          path: '/front1',
+          name: 'front1',
+          component: front1
+        },
+        {
+          path: '/front2',
+          name: 'front2',
+          component: front2
+        },
+        {
+          path: '/front3',
+          name: 'front3',
+          component: front3
+        }
+      ]
+    },
+
     {
       path: '/mainIndex',
       name: 'mainIndex',
