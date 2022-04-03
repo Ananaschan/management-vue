@@ -2,11 +2,8 @@
   <div>
     <div class="header" >
       <div class="header0">
-        <div class="text0">Welcome !</div>
+        <div class="text0">Welcome! <a href="/mainIndex" style="color: white">员工入口</a> </div>
         <div class="tag0">
-          <div>
-
-          </div>
           <div>
             <router-link to="/front1">
               个人及家庭产品
@@ -68,9 +65,12 @@
 </template>
 
 <script>
+
     export default {
         name: "index0"
     }
+
+
 </script>
 
 <style scoped>
@@ -125,6 +125,8 @@
   .header0 > div{
     padding-right: 20px;
   }
+
+
   .text0{
     background-color: black;
   }
