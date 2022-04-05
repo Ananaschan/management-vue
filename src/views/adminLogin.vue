@@ -69,11 +69,13 @@
 <style scoped>
 
   .container {
-    background-image: url(../assets/img/in_top_bj.png);
+    background-image: url(../assets/img/login.jpg);
     width:100%;
-    height:900px;
+    height:1280px;
     z-index:10;
     filter:alpha(opacity=40);
+    background-size: 100% 100%;
+    position: relative;
     -moz-opacity:0.4;
     -khtml-opacity: 0.4;
 
