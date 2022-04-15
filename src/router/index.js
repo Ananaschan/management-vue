@@ -15,6 +15,10 @@ import frontIndex from "../views/frontIndex";
 import front1 from "../components/front1";
 import front2 from "../components/front2";
 import front3 from "../components/front3";
+import newsList from "../components/newsList";
+import addNews from "../components/addNews";
+import addPartner from "../components/addPartner";
+import partnerList from "../components/partnerList";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -91,6 +95,42 @@ export default new VueRouter({
           path: '/addDepartment',
           name: 'addDepartment',
           component: addDepartment,
+          meta: {
+            //未登录拦截
+            requireAuth: true
+          }
+        },
+        {//部门模块
+          path: '/newsList',
+          name: 'newsList',
+          component: newsList,
+          meta: {
+            //未登录拦截
+            requireAuth: true
+          }
+        },
+        {//添加部门
+          path: '/addNews',
+          name: 'addNews',
+          component: addNews,
+          meta: {
+            //未登录拦截
+            requireAuth: true
+          }
+        },
+        {//部门模块
+          path: '/partnerList',
+          name: 'partnerList',
+          component: partnerList,
+          meta: {
+            //未登录拦截
+            requireAuth: true
+          }
+        },
+        {//添加部门
+          path: '/addPartner',
+          name: 'addPartner',
+          component: addPartner,
           meta: {
             //未登录拦截
             requireAuth: true

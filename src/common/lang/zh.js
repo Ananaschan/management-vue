@@ -13,5 +13,11 @@ export const m = {
   pay:'订单系统',
   thanks:'生成订单',
   update:'修改',
-  delete:'删除'
+  delete:'删除',
+  news:'新闻',
+  addNews:'添加新闻',
+  newsList:'新闻列表',
+  partner:'伙伴',
+  addPartner:'添加伙伴',
+  partnerList:'伙伴列表',
 }

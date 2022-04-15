@@ -68,45 +68,20 @@
       <h3>新闻与活动</h3>
       <div class="info">
 
-        <div class="card1">
-          <el-card class="box-card">
-            <div slot="header">
-              <span>2022世界移动大会</span>
-            </div>
-            <div class="text item">
-              面向HW，HW与全球运营商、合作伙伴一起，打造极简、绿色、智能的ICT基础设施，坚持科技向善，致力于以创新的技术和产品解决方案让生活更美好、商业更智...
-            </div>
-          </el-card>
+        <div v-for="item in tableData" :key="item" class="text item">
+
+          <div class="card1">
+            <el-card class="box-card">
+              <div slot="header">
+                <span>{{item.title}}</span>
+              </div>
+              <div class="text item">
+                {{item.context}}
+              </div>
+            </el-card>
+          </div>
         </div>
 
-        <div class="card2">
-          <el-card class="box-card">
-            <div slot="header">
-              <span>2022运营转型峰会</span>
-            </div>
-            <div class="text item">
-              沿着运营运维数智化转型的旅程，携手将数智技术和创新带入运营运维每一个环节，引领智能新体验、新价值，构建万物互联的智能世界。
-            </div>
-          </el-card>
-        </div>
-
-        <div class="card3">
-          <el-card class="box-card">
-            <div slot="header">
-              <span>其他</span>
-            </div>
-            <div class="text item">
-
-              HW与达尔文圈发起“维也纳科技向绿倡议”
-
-            </div>
-            <div class="text item">
-
-              关于公司轮值董事长的当值公告　
-
-            </div>
-          </el-card>
-        </div>
 
       </div>
     </div>
@@ -130,9 +105,26 @@
             pic5:require('../assets/img/fromt1/recruitment3.jpg'),
             pic6:require('../assets/img/fromt1/6g.jpg'),
             pic7:require('../assets/img/fromt1/xuwenwei.jpg'),
+            tableData: [],
           }
 
-        }
+        },
+      mounted(){
+      this.getList()
+    },
+      methods: {
+      getList(){
+        this.$axios
+          .post('/news/list')
+          .then(successResponse => {
+            console.log(successResponse.data)
+            this.tableData = successResponse.data
+          })
+          .catch(failResponse => {
+          })
+      }
+    }
+
     }
 </script>
 
@@ -222,15 +214,10 @@
   .card1{
     float: left;
     width: 33.3%;
+    height: 250px;
+    margin-bottom: 20px;
   }
-  .card2{
-    float: left;
-    width: 33%;
-  }
-  .card3{
-    float: left;
-    width: 33%;
-  }
+
 
   .text {
     font-size: 16px;

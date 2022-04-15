@@ -121,6 +121,44 @@
               </el-submenu>
               <el-submenu index="4">
                 <template slot="title">
+                  <i class="el-icon-user-solid"></i>
+                  <span>{{$t('m.news')}}</span>
+                </template>
+                <el-menu-item-group>
+                  <router-link to="/newsList">
+                    <el-menu-item index="3-1">
+                      {{$t('m.newsList')}}
+                    </el-menu-item>
+                  </router-link>
+
+                  <router-link to="/addNews">
+                    <el-menu-item index="3-2">
+                      {{$t('m.addNews')}}
+                    </el-menu-item>
+                  </router-link>
+                </el-menu-item-group>
+              </el-submenu>
+              <el-submenu index="5">
+                <template slot="title">
+                  <i class="el-icon-user-solid"></i>
+                  <span>{{$t('m.partner')}}</span>
+                </template>
+                <el-menu-item-group>
+                  <router-link to="/partnerList">
+                    <el-menu-item index="3-1">
+                      {{$t('m.partnerList')}}
+                    </el-menu-item>
+                  </router-link>
+
+                  <router-link to="/addPartner">
+                    <el-menu-item index="3-2">
+                      {{$t('m.addPartner')}}
+                    </el-menu-item>
+                  </router-link>
+                </el-menu-item-group>
+              </el-submenu>
+              <el-submenu index="6">
+                <template slot="title">
                   <i class="el-icon-goods"></i>
                   <span>{{$t('m.pay')}}</span>
                 </template>

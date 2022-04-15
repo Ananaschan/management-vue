@@ -11,7 +11,7 @@
       </el-carousel>
     </div>
     <div class="main">
-      <h3>招贤纳士</h3>
+      <h3>公司部门展示</h3>
       <div class="info">
         <div v-for="item in tableData" :key="item.name" class="text item">
           <div class="card">

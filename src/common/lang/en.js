@@ -13,6 +13,13 @@ export const m = {
   pay:'Order',
   thanks:'Pay For Order',
   update:'Update',
-  delete:'Delete'
+  delete:'Delete',
+  news:'News',
+  newsList:'News List',
+  addNews:'Add News',
+  partner:'Partner',
+  partnerList:'Partner List',
+  addPartner:'Add Partner'
+
 
 }
