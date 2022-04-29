@@ -19,6 +19,7 @@ import newsList from "../components/newsList";
 import addNews from "../components/addNews";
 import addPartner from "../components/addPartner";
 import partnerList from "../components/partnerList";
+import frontEmployeeList from "../components/frontEmployeeList";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -51,6 +52,11 @@ export default new VueRouter({
           path: '/front3',
           name: 'front3',
           component: front3
+        },
+        {
+          path: '/front4',
+          name: 'front4',
+          component: frontEmployeeList
         }
       ]
     },

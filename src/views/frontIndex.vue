@@ -2,12 +2,17 @@
   <div>
     <div class="header" >
       <div class="header0">
-        <div class="text0">Welcome! <a href="/mainIndex" style="color: white">员工入口</a> </div>
+        <div class="text0">Welcome! <a href="/mainIndex" style="color: white">管理层入口</a> </div>
         <div class="tag0">
           <div>
             <router-link to="/front1">
               个人及家庭产品
             </router-link>
+
+            <router-link to="/front4">
+              在职员工
+            </router-link>
+
             <router-link to="/front2">
               合作伙伴与开发者
             </router-link>

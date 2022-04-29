@@ -11,7 +11,7 @@
       </el-carousel>
     </div>
     <div class="main">
-      <h3>成为合作伙伴</h3>
+      <h3>合作公司列表</h3>
       <div class="info">
 
         <div v-for="item in tableData" :key="item" class="text item">
