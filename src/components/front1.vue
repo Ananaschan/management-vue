@@ -65,7 +65,7 @@
 
         </div>
       </div>
-      <h3>新闻与活动</h3>
+      <h3>团建活动及其他通知</h3>
       <div class="info">
 
         <div v-for="item in tableData" :key="item" class="text item">

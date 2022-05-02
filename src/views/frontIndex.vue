@@ -6,7 +6,7 @@
         <div class="tag0">
           <div>
             <router-link to="/front1">
-              个人及家庭产品
+              员工优秀作品展示
             </router-link>
 
             <router-link to="/front4">
